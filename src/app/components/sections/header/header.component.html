@@ -1,0 +1,30 @@
+<header>
+  <!-- Header desktop -->
+  <div class="container-menu-desktop">
+
+    <div class="wrap-menu-desktop">
+      <nav class="limiter-menu-desktop container">
+
+        <!-- Logo desktop -->
+<!--        <a href="#" class="logo">-->
+<!--          <img src="assets/images/icons/logo-01.png" alt="IMG-LOGO">-->
+<!--        </a>-->
+
+        <!-- Menu desktop -->
+        <div class="menu-desktop">
+          <ul class="main-menu">
+            <li class="active-menu">
+              <a routerLink="/">Home</a>
+            </li>
+
+            <li *ngIf="user == null">
+              <span (click)="loginUser();" >Login</span>
+            </li>
+
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+  </div>
+</header>

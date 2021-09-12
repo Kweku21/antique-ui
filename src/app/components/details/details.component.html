@@ -1,0 +1,155 @@
+<!-- Header -->
+<!--<app-second-header></app-second-header>-->
+<app-header></app-header>
+
+<!-- Title page -->
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assets/images/sliders/slide5.jpeg');">
+  <h2 class="ltext-105 cl0 txt-center">
+    Product Details
+  </h2>
+</section>
+
+<!-- Content page -->
+<section class="bg0 p-t-75 p-b-120">
+  <div class="container">
+    <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+      <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+        <img src="assets/images/icons/icon-close.png" alt="CLOSE">
+      </button>
+      <div class="row">
+
+        <div class="col-lg-6">
+          <article class="gallery-wrap">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li *ngFor="let image of product?.product_images;index as i;" data-target="#carouselExampleIndicators" data-slide-to="{{i}}" [class.active]="i==1"></li>
+
+              </ol>
+              <div class="carousel-inner">
+                <div *ngFor="let image of product?.product_images;index as i;" class="carousel-item " [class.active]="i == 1">
+                  <img class="d-block" height="100%" width="100%" [src]="image.image_url" alt="First slide">
+                </div>
+
+              </div>
+
+              <img *ngIf="product?.product_images.length == 1" [src]="product?.product_images[0].image_url" height="250px" alt="">
+
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-5 p-b-30">
+          <div class="p-r-50 p-t-5 p-lr-0-lg">
+            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+              {{product?.name}}
+            </h4>
+            <span class="mtext-106 cl2">
+								${{product?.price}}
+							</span>
+
+            <p class="stext-102 cl3 p-t-23 multiline">
+              {{product?.content}}
+            </p>
+
+            <div *ngIf="!!product && checkCloseDate()">
+              <app-count-down  [dDay]="getProductCloseDate()" > </app-count-down>
+            </div>
+
+
+            <div *ngIf="checkCloseDate() == false" class="alert alert-danger mt-10" role="alert">
+              Product Biding has ended
+            </div>
+
+            <!--  -->
+            <div *ngIf="!!user && checkCloseDate()" class="p-t-33">
+              <form  #productBidForm="ngForm" (ngSubmit)="productBid(productBidForm)">
+                <div class="flex-w flex-r-m p-b-10">
+                  <div class="size-203 flex-c-m respon6">
+                    Bid Amount
+                  </div>
+
+                  <div class="size-204 respon6-next">
+                    <div class="rs1-select2 bor8 bg0">
+                      <input ngModel step="any" required type="number" name="amount" class="form-control" placeholder="Enter your bid amount">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex-w flex-r-m p-b-10">
+                  <div class="size-204 flex-w flex-m respon6-next">
+                    <div class="form-check mr-20">
+                      <input  (click)="checkAutoBid()"  ngModel class="form-check-input" name="auto_bid" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Activate Auto-Bid
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="flex-w flex-r-m p-b-10">
+                  <div class="size-204 flex-w flex-m respon6-next">
+                    <button [disabled]="productBidForm.invalid" type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail pl-10 p-20">
+                      Submit Bid
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+            <div *ngIf="user == null" class="p-t-33">
+              <div class="flex-w flex-r-m p-b-10">
+                <div class="size-204 flex-w flex-m respon6-next">
+                  <button (click)="loginUser();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail pl-10 p-20">
+                    Login to Bid
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>
+
+<button class="d-none" data-toggle="modal" data-target="#bidConfig" id="bidConfigModal">Click</button>
+<!-- Modal -->
+<div class="modal fade" id="bidConfig" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Configure Auto Bid</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #autoBidForm="ngForm" (ngSubmit)="submitAutoBid(autoBidForm)">
+          <div class="form-group">
+            <label>Maximum Bid Amount</label>
+            <input type="number" ngModel step="any" name="amount" class="form-control" aria-describedby="emailHelp" placeholder="Enter maximum bid amount">
+          </div>
+          <div class="modal-footer">
+            <button type="reset" id="closeConfigModal" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
