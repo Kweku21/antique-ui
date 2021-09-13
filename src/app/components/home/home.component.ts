@@ -20,14 +20,10 @@ export class HomeComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private errorService: ErrorService,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
-
     this.getProducts();
-
   }
 
   public getProducts(): void {
@@ -47,10 +43,8 @@ export class HomeComponent implements OnInit {
     if (!!this.paginate.next){
       this.productService.loadProductsFromUrl(this.paginate.next).subscribe(
         (response: any) => {
-
           response.results.forEach(product => this.products.push(product));
           this.paginate = new Pagination(response.count, response.next, response.previous);
-
         },
         (error: HttpErrorResponse) => {
           this.responseMessage = this.errorService.requestError(error.error, error.status);
@@ -67,10 +61,8 @@ export class HomeComponent implements OnInit {
 
     this.productService.searchProducts(keyword).subscribe(
       (response: any) => {
-
         this.products = response.results;
         this.paginate = new Pagination(response.count, response.next, response.previous);
-
       },
       (error: HttpErrorResponse) => {
         this.responseMessage = this.errorService.requestError(error.error, error.status);
@@ -83,10 +75,8 @@ export class HomeComponent implements OnInit {
 
     this.productService.filterProducts(filterKeyWord).subscribe(
       (response: any) => {
-
         this.products = response.results;
         this.paginate = new Pagination(response.count, response.next, response.previous);
-
       },
       (error: HttpErrorResponse) => {
         this.responseMessage = this.errorService.requestError(error.error, error.status);

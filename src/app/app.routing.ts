@@ -17,9 +17,9 @@ const routes: Routes = [
     component: DetailsComponent
   },
   /**
-   * Error
+   * Error 404
    */
-  // {path: '**', component: ErrorComponent}
+  {path: '**', component: HomeComponent}
 
 
 ];

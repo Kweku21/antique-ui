@@ -48,11 +48,7 @@ export class DetailsComponent implements OnInit {
 
     this.productService.getSingleProduct(id).subscribe(
       (response: any) => {
-
         this.product = response;
-
-        console.log(this.product.close_bid_date);
-
       },
       (error: HttpErrorResponse) => {
         this.responseMessage = this.errorService.requestError(error.error, error.status);
@@ -67,16 +63,12 @@ export class DetailsComponent implements OnInit {
       (response: any) => {
         this.storageService.setUser(response.user);
         this.storageService.setBidConfig(response.bid_config);
-
         this.user = this.storageService.getUser();
-
-
       },
-      (error: HttpErrorResponse) => {
+      () => {
         this.errorService.alertMessage('Error', 'Unable to login', 'error');
       }
     );
-
   }
 
   public productBid(productBidForm: NgForm): void{
@@ -88,13 +80,9 @@ export class DetailsComponent implements OnInit {
     };
 
     this.productService.makeProductBid(formRequest).subscribe(
-      (response: any) => {
-
+      () => {
         alert('Successfully completed bid for product');
-
         productBidForm.resetForm();
-
-
       },
       (error: HttpErrorResponse) => {
         this.responseMessage = this.errorService.requestError(error.error, error.status);
@@ -117,14 +105,13 @@ export class DetailsComponent implements OnInit {
     };
 
     this.userService.submitAutoBidConfig(configRequest).subscribe(
-      (response: any) => {
-
+      () => {
         alert('Successfully completed configuration for auto bid');
-
+        this.loginUser();
         autoBidForm.resetForm();
-
       },
       (error: HttpErrorResponse) => {
+        this.loginUser();
         this.responseMessage = this.errorService.requestError(error.error, error.status);
         this.errorService.alertMessage('Error', this.responseMessage.message, 'error');
       }

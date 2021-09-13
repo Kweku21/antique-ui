@@ -22,20 +22,15 @@ export class HeaderComponent implements OnInit {
     private loginService: LoginService,
     private errorService: ErrorService,
   ) {
-    // Get user
     this.user = this.storageService.getUser();
   }
 
   ngOnInit(): void {
-
     this.jqueryStarter();
-
   }
 
   public jqueryStarter(): void {
     let posWrapHeader;
-    const windowH = $(window).height() / 2;
-
     const headerDesktop = $('.container-menu-desktop');
     const wrapMenu = $('.wrap-menu-desktop');
 
@@ -46,7 +41,6 @@ export class HeaderComponent implements OnInit {
       posWrapHeader = 0;
     }
 
-    // tslint:disable-next-line:typedef
     $(window).on('scroll', function(){
       if ($(this).scrollTop() > posWrapHeader) {
         $(headerDesktop).addClass('fix-menu-desktop');
@@ -58,8 +52,6 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    // [ Filter / Search product ]*/
-    // tslint:disable-next-line:typedef
     $('.js-show-filter').on('click', function(){
       $(this).toggleClass('show-filter');
       $('.panel-filter').slideToggle(400);
@@ -72,16 +64,12 @@ export class HeaderComponent implements OnInit {
       (response: any) => {
         this.storageService.setUser(response.user);
         this.storageService.setBidConfig(response.bid_config);
-
         this.user = this.storageService.getUser();
-
-
       },
       (error: HttpErrorResponse) => {
         this.errorService.alertMessage('Error', 'Unable to login', 'error');
       }
     );
-
   }
 
 }

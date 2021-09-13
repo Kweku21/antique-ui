@@ -116,6 +116,11 @@
               </div>
             </div>
 
+
+            <ul class="list-group">
+              <li class="list-group-item active">Recent Bids</li>
+              <li *ngFor="let bid of product?.product_biding.slice(0, 5)" class="list-group-item">$ {{bid.amount}} by {{bid.user.name}}</li>
+            </ul>
           </div>
         </div>
       </div>
