@@ -1,27 +1,19 @@
-# AntiqueUi
+#  Antique Product Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.13.
 
-## Development server
+This project is the web frontend for  [Antique Backend](https://github.com/Kweku21/antique_api). It was developed using Angular framework
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Instructions on how to execute the application
+Note: Make sure you have nodejs installed
 
-## Code scaffolding
+1. Install angular-cli: `npm install -g @angular/cli@11.2.13`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. Install npm dependencies: `npm install`
 
-## Build
+3. Run application: `ng serve -o`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+4. Application will be running on : `http://localhost:4200/` 
 
-## Running unit tests
+### Backend-end for this application
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The back-end application for this application is [Antique Backend](https://github.com/Kweku21/antique_api)
